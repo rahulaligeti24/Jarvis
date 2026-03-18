@@ -1,0 +1,110 @@
+### =========================================
+### 1️⃣ Create User
+### =========================================
+POST http://localhost:5000/api/users/create
+Content-Type: application/json
+
+{
+  "name": "Ashish",
+  "email": "ashish@test.com"
+}
+
+###
+
+### =========================================
+### 2️⃣ Get All Users
+### =========================================
+GET http://localhost:5000/api/users/all
+
+###
+
+### =========================================
+### 3️⃣ Seed Test Conversations
+### Replace USER_ID with real ID from step 1
+### =========================================
+GET http://localhost:5000/api/test/seed?userId=69982b3d9a01970f37c4cd7f
+
+###
+
+### =========================================
+### 4️⃣ Test RAG Directly (Vector Search Only)
+### =========================================
+GET http://localhost:5000/api/test/rag-test?message=Should%20I%20give%20discount?
+
+###
+
+### =========================================
+### 5️⃣ Full Chat Flow (RAG + LLM)
+### Replace USER_ID with real ID
+### =========================================
+POST http://localhost:5000/api/chat
+Content-Type: application/json
+
+{
+  "userId": "USER_ID",
+  "message": "Client asking for discount. What should I do?"
+}
+
+###
+
+### =========================================
+### 6️⃣ RAG Test - Vector Search Results
+### =========================================
+GET http://localhost:5000/api/test/rag-test?userId=69982b3d9a01970f37c4cd7f&message=discount
+
+### =========================================
+### 7️⃣ RAG Context - Formatted for LLM
+### =========================================
+GET http://localhost:5000/api/test/rag-context?userId=69982b3d9a01970f37c4cd7f&message=How%20to%20handle%20refunds?
+
+###
+
+
+POST http://localhost:5000/api/chat
+Content-Type: application/json
+
+{
+  "userId": "69982b3d9a01970f37c4cd7f",
+  "message": "Should I give discount?",
+  "category": "pricing"
+}
+
+
+
+### Create User
+POST http://localhost:5000/api/users/create
+Content-Type: application/json
+
+{
+  "name": "Test User",
+  "email": "test@example.com"
+}
+
+###
+
+### Seed conversations (replace USER_ID with the ID from above)
+GET http://localhost:5000/api/test/seed?userId=69983e7eb7dbf5a7aec16edf
+
+###
+
+### Chat endpoint (replace USER_ID)
+POST http://localhost:5000/api/chat
+Content-Type: application/json
+
+{
+  "userId": "69983e7eb7dbf5a7aec16edf",
+  "message": "Should I give discount?",
+  "category": "pricing"
+}
+
+###
+
+### Test with more specific message
+POST http://localhost:5000/api/chat
+Content-Type: application/json
+
+{
+  "userId": "69983e7eb7dbf5a7aec16edf",
+  "message": "Should I give discount to loyal customers?",
+  "category": "pricing"
+}
